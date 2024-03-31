@@ -22,5 +22,7 @@ Welcome to my GitHub repository where I showcase various small projects as part 
      - `tracker.py` (external contribution)
        ![SCR-20240221-rpgj](https://github.com/valntn1/portf/assets/125474713/1438da85-ef0e-4106-a616-978b166c5149)
 
-
+4. ** 🦜🔗 LangChain Hetman Bot**
+  - The project makes a chain between OpenAI API and LangChain and specifies instructions by subprompt. This one answers in the tone of Bohdan Khmelnytsky.
+   
 Thank you for visiting my portfolio repository! 🚀
