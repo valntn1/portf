@@ -24,5 +24,15 @@ Welcome to my GitHub repository where I showcase various small projects as part 
 
 4. **🦜🔗 LangChain Hetman Bot**
   - The project makes a chain between OpenAI API and LangChain and specifies instructions by subprompt. This one answers in the tone of Bohdan Khmelnytsky.
-   
+    
+5. **LLM GPT Post Generation service: ML with Hugging Face**
+- **Description:** This machine learning project demonstrates fine-tuning a GPT-2 model from Hugging Face for Ukrainian language post generation. It showcases the use of transfer learning in NLP, utilizing the Transformers library. The project includes a Python script for model training and a Gradio interface for interactive post generation.
+
+- **Files:**
+   - 'ml_post_generation_service.py' (main ML script)
+   - 'gradio_interface.py (user interface)'
+   - 'dataset70train.csv (training data)'
+   - 'dataset30test.csv (test data)'
+<img width="657" alt="SCR-20240710-phpr" src="https://github.com/valntn1/portf/assets/125474713/849ec845-939b-4aff-99c7-685e7dddc136">
+
 Thank you for visiting my portfolio repository! 🚀
