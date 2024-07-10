@@ -1,0 +1,95 @@
+import torch
+torch.cuda.empty_cache()
+
+from transformers import AutoTokenizer, AutoModelForCausalLM
+from transformers import TextDataset, DataCollatorForLanguageModeling, Trainer, TrainingArguments
+import requests
+import pandas as pd
+
+pip install accelerate -U
+
+model_name = "gpt2-large-wechsel-ukrainian"
+tokenizer = AutoTokenizer.from_pretrained("benjamin/gpt2-large-wechsel-ukrainian")
+model = AutoModelForCausalLM.from_pretrained("benjamin/gpt2-large-wechsel-ukrainian")
+
+def generate_post(instruction, model, tokenizer, max_length=100):
+    tokenizer.pad_token_id = tokenizer.eos_token_id 
+    input_ids = tokenizer.encode(instruction, return_tensors="pt", max_length=50, truncation=True)
+    attention_mask = input_ids.ne(tokenizer.pad_token_id).long()
+    output = model.generate(input_ids, attention_mask=attention_mask, max_length=max_length, num_return_sequences=1, pad_token_id=tokenizer.eos_token_id)
+    generated_text = tokenizer.decode(output[0], skip_special_tokens=True)
+    return generated_text
+
+instruction = "створи новий пост про рюкзак моделі 'Adventure' на 25 літрів за 200$, який класно підійде для альпіністів"
+generated_post = generate_post(instruction, model, tokenizer)
+print(generated_post)
+
+tokenizer.pad_token_id = tokenizer.eos_token_id
+
+train_file_path = "/content/drive/MyDrive/Colab Notebooks/dataset70train.csv"
+test_file_path = "/content/drive/MyDrive/Colab Notebooks/dataset30test.csv"
+
+data_collator = DataCollatorForLanguageModeling(tokenizer, mlm=False)
+
+train_dataset = TextDataset(
+    tokenizer,
+    train_file_path,
+    block_size=tokenizer.model_max_length )
+
+test_dataset = TextDataset(
+    tokenizer,
+    test_file_path,
+    block_size=tokenizer.model_max_length )
+
+training_args = TrainingArguments(
+    output_dir="./output",
+    overwrite_output_dir=True,
+    num_train_epochs=2,
+    per_device_train_batch_size=1,
+    save_steps=10_000,
+    save_total_limit=2,
+    evaluation_strategy="epoch",
+    eval_steps=500,
+)
+
+pip install transformers[torch]
+
+trainer = Trainer(
+    model=model,
+    args=training_args,
+    data_collator=data_collator,
+    train_dataset=train_dataset,
+    eval_dataset=test_dataset,
+)
+
+trainer.train()
+
+new_instruction = "Створи короткий пост про переваги використання рюкзака для походів"
+generated_text = generate_post(new_instruction, trainer.model, tokenizer)
+print(generated_text)
+
+another_instruction = "Опиши досвід першого підйому на гору"
+another_generated_text = generate_post(another_instruction, trainer.model, tokenizer)
+print(another_generated_text)
+
+
+#-----
+
+
+pip install gradio
+
+import gradio as gr
+
+def gradio_interface(instruction):
+    generated_post = generate_post(instruction, model, tokenizer)
+    return generated_post
+
+interface = gr.Interface(
+    fn=gradio_interface,
+    inputs=gr.Textbox(lines=2, placeholder="Введіть інструкцію"),
+    outputs="text",
+    title="Генератор постів",
+    description="Введіть інструкцію для створення нового посту, а згенерований пост буде відображатися поряд."
+)
+
+interface.launch()
