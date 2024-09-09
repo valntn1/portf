@@ -35,4 +35,10 @@ Welcome to my GitHub repository where I showcase various small projects as part 
    - 'dataset30test.csv (test data)'
 <img width="657" alt="SCR-20240710-phpr" src="https://github.com/valntn1/portf/assets/125474713/849ec845-939b-4aff-99c7-685e7dddc136">
 
+
+6. **World Population Data Scraper**
+   - **Description:** This project scrapes world population data from the Worldometer website using Python's BeautifulSoup and requests libraries. It extracts table data, structures it into a pandas DataFrame, and exports the result as a CSV file for further analysis. 
+   - **Files:**
+     - `world_population_data_scraper.py`
+
 Thank you for visiting my portfolio repository! 🚀
