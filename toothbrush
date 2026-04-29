@@ -1,0 +1,31 @@
+import time
+
+regimes = {"cleaning":(70,(1,1,0,0)),
+            "polishing":(100,(1,1,1,1)),
+            "massage":(50,(1,0,0,0)) }
+def timing(t):
+    for o in range(t):
+        time.sleep(5)
+        print("change")
+        time.sleep(1)
+actualRegime = str(None)
+
+
+command = int(input("1 Cleaning, 2 Polishing, 3 Massage. Type yours: "))
+if command == 1:
+    actualRegime = regimes["cleaning"]
+    print(f"Cleaning started with power: {regimes['cleaning'][0]}, and pattern {regimes['cleaning'][1]}")
+    timing(4)
+    print("Cleaning finished")
+elif command == 2:
+    actualRegime = regimes["polishing"]
+    print(f"Polishing started with power:{regimes['polishing'][0]}, and pattern {regimes['polishing'][1]}")
+    timing(4)
+    print("Polishing finished")
+elif command == 3:
+    actualRegime = regimes["massage"]
+    print(f"{actualRegime} started with power:{regimes['massage'][0]}, and pattern: {regimes['massage'][1]} ")
+    timing(8)
+    print(f"Massage finished")
+else:
+    print("Error. Regime not found")
