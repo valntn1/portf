@@ -40,5 +40,12 @@ Welcome to my GitHub repository where I showcase various small projects as part 
    - **Description:** This project scrapes world population data from the Worldometer website using Python's BeautifulSoup and requests libraries. It extracts table data, structures it into a pandas DataFrame, and exports the result as a CSV file for further analysis. 
    - **Files:**
      - `world_population_data_scraper.py`
+    
+7. **Toothbrush**
+   - **Description:** Next fun but simple practical project born from idea on how to realise program of toothbrush I have. So I bring to it some functions. It gives a options to choose a regime. Then after you chose it starts to work this regime, and each of three regimes has their own pattern and power of work. And yeah, notification to change your jaw zone to clean.
+
+   - **Files:**
+     - `toothbrush.py`
+
 
 Thank you for visiting my portfolio repository! 🚀
